@@ -11,6 +11,7 @@ function App() {
             <ToolBar/>
             <Routes>
                 <Route path='/' element={(<Movies/>)}/>
+                <Route path='*' element={(<h1>Page not found</h1>)}/>
             </Routes>
         </>
     )

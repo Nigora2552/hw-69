@@ -1,13 +1,14 @@
 import SearchMovie from "../../components/SearchMovie/SearchMovie.tsx";
-import Form from "../../components/Form/Form.tsx";
+// import MovieName from "../../components/MovieName/MovieName.tsx";
+
 
 const Movies = () => {
 
 
     return (
         <>
-            <Form/>
             <SearchMovie/>
+            {/*<MovieName/>*/}
         </>
     );
 };

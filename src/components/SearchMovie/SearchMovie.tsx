@@ -2,17 +2,18 @@ import {Grid, MenuItem, Paper, TextField} from "@mui/material";
 import {useEffect, useState} from "react";
 
 import {useAppDispatch, useAppSelector} from "../../app/hooks.ts";
-import {getAllMovies, selectAllMovies} from "../../features/Movies/MoviesSlice.ts";
-import {NavLink, useParams} from "react-router-dom";
-
+import {getAllMovies, getMovieId, selectAllMovies} from "../../features/MoviesSlice/MoviesSlice.ts";
+import {NavLink} from "react-router-dom";
 
 
 const SearchMovie = () => {
     const dispatch = useAppDispatch();
     const movies = useAppSelector(selectAllMovies);
-    const params = useParams()
     const [value, setValue] = useState('');
 
+    const getMovieByID = async (id: string) => {
+        await dispatch(getMovieId(id))
+    }
 
     useEffect(() => {
         dispatch(getAllMovies())
@@ -24,7 +25,7 @@ const SearchMovie = () => {
 
 
     return (
-        <Grid container spacing={2} sx={{mx: 'auto', alignItems: 'center', justifyContent: 'center'}}>
+        <Grid container spacing={2} sx={{mx: 'auto', mb: '20px', alignItems: 'center', justifyContent: 'center'}}>
             <Grid size={3}>
                 <h1 style={{fontWeight: 'medium', fontSize: '28px'}}>Search for TV Show: </h1>
             </Grid>
@@ -39,12 +40,12 @@ const SearchMovie = () => {
                     onChange={(e) => setValue(e.target.value)}
                 />
                 {value && <>
-
-                <Paper sx={{listStyle: 'none'}}>
-                    {filterByName.map(m => (
-                        <MenuItem key={m.show.name} style={{padding: '8px'}} component={NavLink} to={`/${params.id}`}>{m.show.name}</MenuItem>
+                    <Paper sx={{listStyle: 'none'}}>
+                        {filterByName.map(m => (
+                            <MenuItem key={m.show.id} style={{padding: '8px'}} component={NavLink} to={`/${m.show.id}`}
+                                      onClick={() => getMovieByID(m.show.id)}>{m.show.name}</MenuItem>
                         ))}
-                </Paper>
+                    </Paper>
                 </>}
             </Grid>
         </Grid>

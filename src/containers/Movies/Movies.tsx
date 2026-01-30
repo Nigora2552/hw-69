@@ -8,7 +8,6 @@ const Movies = () => {
     return (
         <>
             <SearchMovie/>
-            {/*<MovieName/>*/}
         </>
     );
 };

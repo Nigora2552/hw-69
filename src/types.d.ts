@@ -1,9 +1,11 @@
 export  interface IMovie {
-    id: string;
-    name: string;
-    description: string;
      show: {
          name: string;
+         id: string;
+         summary: string;
+         image: {
+             medium:string
+         }
      }
 }
 

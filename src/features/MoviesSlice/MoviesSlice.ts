@@ -25,18 +25,21 @@ export const movieSlice = createSlice({
         builder.addCase(getAllMovies.pending, (state) => {
             state.loading.fetch = true;
         });
-        builder.addCase(getAllMovies.fulfilled, (state, action) => {
+        builder.addCase(getAllMovies.fulfilled, (state, action ) => {
             state.loading.fetch = false;
             state.movie = action.payload;
-        //     const newArray = action.payload.map(new => {
-        //      return {
-        //             name: `${new.show.name}`
-        //         }
-        //
-        //     });
-        //
         });
         builder.addCase(getAllMovies.rejected, (state) => {
+            state.loading.fetch = false;
+        });
+
+        builder.addCase(getMovieId.pending, (state) => {
+            state.loading.fetch = true;
+        });
+        builder.addCase(getMovieId.fulfilled, (state) => {
+            state.loading.fetch = false;
+        });
+        builder.addCase(getMovieId.rejected, (state) => {
             state.loading.fetch = false;
         })
     }
@@ -51,13 +54,12 @@ export const getAllMovies = createAsyncThunk<IMovie[], void>('movie/getAllMovies
     async () => {
         const response = await axios.get<IMovie[]>('https://api.tvmaze.com/search/shows?q=csi');
         return response.data
-        // const data = response.data;
-        // return data.map(movie => ({
-        //     id: movie.id,
-        //     description: movie.description,
-        //     title: movie.name
-        // }));
         }
+)
+export const getMovieId = createAsyncThunk<void, string>('movie/getMovieId',
+    async (id) => {
+        await axios.get<IMovie[]>(`https://api.tvmaze.com/search/shows?q=csi${id}`);
+    }
 )
 
 
